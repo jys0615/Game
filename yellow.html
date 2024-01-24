@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .grid-container {
+      display: flex;
+      gap: 240px;
+      margin-left: 100px;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .image-grid button {
+      width: 100%;
+      padding: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      overflow: hidden; /* 추가된 부분: 이미지를 버튼의 경계로 제한 */
+    }
+
+    .image-grid img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .feedback-message {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .correct-answer {
+      color: green;
+    }
+
+    .incorrect-answer {
+      color: red;
+    }
+  </style>
+  <title>Image Grids</title>
+</head>
+<body>
+  <h1>왼쪽 그림에서 노란색으로 표시된 도형과 모양이 같은 도형을 오른쪽에서 고르세요</h1>
+  <div class="grid-container">
+    <div class="image-grid">
+      <img src="img/yel1.jpg" alt="Yellow Image 1">
+      <img src="img/yel2.jpg" alt="Yellow Image 2">
+      <img src="img/yel3.jpg" alt="Yellow Image 3">
+      <img src="img/yel4.jpg" alt="Yellow Image 4">
+    </div>
+
+    <div class="image-grid">
+      <button onclick="checkAnswer('yel5', this)">
+        <img src="img/yel5.jpg" alt="Yellow Image 5">
+      </button>
+      <button onclick="checkAnswer('yel6', this)">
+        <img src="img/yel6.jpg" alt="Yellow Image 6">
+      </button>
+      <button onclick="checkAnswer('yel7', this)">
+        <img src="img/yel7.jpg" alt="Yellow Image 7">
+      </button>
+      <button onclick="checkAnswer('yel8', this)">
+        <img src="img/yel8.jpg" alt="Yellow Image 8">
+      </button>
+    </div>
+  </div>
+
+  <div class="feedback-message" id="feedbackMessage"></div>
+
+  <script>
+    function checkAnswer(selectedImage, button) {
+      var correctAnswer = 'yel6';
+      var feedbackMessage = document.getElementById('feedbackMessage');
+
+      // 초기화
+      document.querySelectorAll('.image-grid img').forEach(function (img) {
+        img.style.border = '3px solid transparent';
+      });
+
+      if (selectedImage === correctAnswer) {
+        feedbackMessage.textContent = '정답입니다! √';
+        feedbackMessage.className = 'feedback-message correct-answer';
+      } else {
+        feedbackMessage.textContent = '오답입니다.';
+        feedbackMessage.className = 'feedback-message incorrect-answer';
+      }
+
+      // 이미지 테두리에 색상 적용
+      button.querySelector('img').style.border = '3px solid ' + (selectedImage === correctAnswer ? 'green' : 'red');
+
+      // 잠시 후에 메시지 초기화
+      setTimeout(function () {
+        feedbackMessage.textContent = '';
+        feedbackMessage.className = 'feedback-message';
+
+        // 이미지 테두리 초기화
+        document.querySelectorAll('.image-grid img').forEach(function (img) {
+          img.style.border = '3px solid transparent';
+        });
+      }, 1200); // 1.5초 후 초기화
+    }
+  </script>
+</body>
+</html>

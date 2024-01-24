@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Images</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    .left-container-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 20px;
+    }
+
+    .right-container-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .image-container {
+      position: relative;
+      margin-bottom: 10px;
+      border: 2px solid #333;
+      padding: 10px;
+    }
+
+    .image-dot1 {
+      position: absolute;
+      top: 50%;
+      right: -15px; /* 수정: 간격을 조금 더 넓힘 */
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background-color: #333;
+      border-radius: 50%;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+    .image-dot2 {
+      position: absolute;
+      top: 50%;
+      left: -15px; /* 수정: 간격을 조금 더 넓힘 */
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background-color: #333;
+      border-radius: 50%;
+      opacity: 0.5;
+      cursor: pointer;
+    }
+
+    .line {
+      position: absolute;
+      background-color: #333;
+      width: 2px; /* 추가: 선의 두께 */
+      height: 2px; /* 추가: 선의 길이 */
+      opacity: 0.5;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      -user-drag: none;
+    }
+
+    .left-container-group .image-dot1 {
+      display: block;
+    }
+
+    .right-container-group .image-dot2 {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="left-container-group">
+    <div class="image-container">
+      <img src="img/money1.png" alt="Money 1">
+      <div class="image-dot1" id="left-dot1" onclick="toggleLine('left-dot1')"></div>
+    </div>
+
+    <div class="image-container">
+      <img src="img/money2.png" alt="Money 2">
+      <div class="image-dot1" id="left-dot2" onclick="toggleLine('left-dot2')"></div>
+    </div>
+
+    <div class="image-container">
+      <img src="img/money3.png" alt="Money 3">
+      <div class="image-dot1" id="left-dot3" onclick="toggleLine('left-dot3')"></div>
+    </div>
+
+    <div class="image-container">
+      <img src="img/money4.png" alt="Money 4">
+      <div class="image-dot1" id="left-dot4" onclick="toggleLine('left-dot4')"></div>
+    </div>
+  </div>
+
+  <div class="right-container-group">
+    <div class="image-container">
+      <img src="img/money1.png" alt="Money 1">
+      <div class="image-dot2" id="right-dot1" onclick="toggleLine('right-dot1')"></div>
+    </div>
+
+    <div class="image-container">
+      <img src="img/money2.png" alt="Money 2">
+      <div class="image-dot2" id="right-dot2" onclick="toggleLine('right-dot2')"></div>
+    </div>
+
+    <div class="image-container">
+      <img src="img/money3.png" alt="Money 3">
+      <div class="image-dot2" id="right-dot3" onclick="toggleLine('right-dot3')"></div>
+    </div>
+
+    <div class="image-container">
+      <img src="img/money4.png" alt="Money 4">
+      <div class="image-dot2" id="right-dot4" onclick="toggleLine('right-dot4')"></div>
+    </div>
+  </div>
+
+  <script>
+    let lines = {};
+
+    function toggleLine(dotId) {
+      const dotElement = document.getElementById(dotId);
+      const container = dotElement.closest('.left-container-group, .right-container-group');
+
+      if (lines[dotId]) {
+        container.removeChild(lines[dotId]);
+        delete lines[dotId];
+      } else {
+        lines[dotId] = document.createElement('div');
+        lines[dotId].classList.add('line');
+        container.appendChild(lines[dotId]);
+        updateLinePosition(dotId);
+      }
+    }
+
+    function updateLinePosition(dotId) {
+      const dotElement = document.getElementById(dotId);
+      const lineElement = lines[dotId];
+
+      const dotRect = dotElement.getBoundingClientRect();
+      const containerRect = dotElement.closest('.left-container-group, .right-container-group').getBoundingClientRect();
+
+      lineElement.style.width = containerRect.left - dotRect.left + 'px';
+      lineElement.style.top = dotRect.top + dotRect.height / 2 + 'px';
+    }
+
+    window.addEventListener('resize', () => {
+      Object.keys(lines).forEach(dotId => updateLinePosition(dotId));
+    });
+  </script>
+
+</body>
+</html>

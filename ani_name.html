@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><보기> 사진은 동물의 일부를 가까이 찍은 것입니다. 동물의 이름을 찾아 고르세요</title>
+    <style>
+        body {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        b {
+            align-items: center;
+
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        img {
+            width: 500px;
+            height: 500px;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .options a {
+            font-size: 25px; /* <보기> 텍스트 크기 조절 */
+            margin-bottom: 10px;
+        }
+
+        .options p {
+            font-size: 18px; /* 객관식 보기 텍스트 크기 조절 */
+        }
+    </style>
+</head>
+<body>
+
+    <h1><보기> 사진은 동물의 일부를 가까이 찍은 것입니다. 동물의 이름을 찾아 고르세요</h1>
+    
+    <div class="image-container">
+        <img src="img/chicken.jpg" alt="동물 사진">
+        
+        <div class="options">
+            <a><보기></a>
+            <b>
+                <p><input type="radio" name="animal" value="option1"> 돼지</p>
+                <p><input type="radio" name="animal" value="option2"> 닭</p>
+                <p><input type="radio" name="animal" value="option3"> 강아지</p>
+            <b>
+        </div>
+    </div>
+
+</body>
+</html>

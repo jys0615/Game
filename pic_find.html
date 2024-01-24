@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정사각형</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff; /* 흰색 배경 */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px; /* 그림과 제목 간격 조절 */
+        }
+
+        .container {
+            position: relative;
+        }
+
+        .square {
+            width: 490px; /* 정사각형 크기 500px */
+            height: 530px; /* 정사각형 크기 500px */
+            background-color: #ffffff; /* 흰색 배경 */
+            border: 2px solid #000000; /* 검정 테두리 */
+            position: relative;
+            overflow: hidden; /* 이미지를 넘치지 않도록 설정 */
+        }
+
+        .horizontal-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            border-top: 2px solid #000000; /* 검정 수평 선 */
+        }
+
+        .top-half {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 50%;
+            background: url('img/pic_find1.jpg') center center/cover no-repeat; /* 상단 영역 배경 이미지 */
+        }
+
+        .bottom-half {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50%;
+            background-color: rgba(0, 0, 0, 0.2); /* 하단 영역 배경색 (예: 투명한 파랑) */
+        }
+
+        .vertical-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #000000; /* 검정 수직 선 */
+        }
+
+        .vertical-line:nth-child(2) {
+            left: 25%;
+        }
+
+        .vertical-line:nth-child(3) {
+            left: 50%;
+        }
+
+        .vertical-line:nth-child(4) {
+            left: 75%;
+        }
+
+        .image-container {
+            position: absolute;
+            width: 24%;
+            height: 50%;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body style="display: flex; flex-direction: column; align-items: center;">
+    <h1><보기>의 그림은 그림의 일부가 지워진 그림입니다.<br>지워진 부분을 채워 그림을 완성한다면 어떤 그림일지 고르세요</h1>
+    <div class="container">
+        <div class="square">
+            <div class="top-half"></div>
+            <div class="bottom-half">
+                <div class="vertical-line"><img src="img/pic_find2.jpg"></div>
+                <div class="vertical-line" style="left: 25%;"><img src="img/pic_find3.jpg"></div>
+                <div class="vertical-line" style="left: 50%;"><img src="img/pic_find4.jpg"></div>
+                <div class="vertical-line" style="left: 75%;"><img src="img/pic_find5.jpg"></div>
+            </div>
+            <div class="horizontal-line"></div>
+        </div>
+    </div>
+</body>
+</html>
