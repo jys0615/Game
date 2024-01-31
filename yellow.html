@@ -60,11 +60,35 @@
     .incorrect-answer {
       color: red;
     }
+
+    #nextPageButton {
+      height: 80px;
+      width: 200px;
+      position: absolute;
+      text-align: center;
+      top: 80%;
+      right: -6%;
+      font-size: x-large;
+      transform: translate(-50%, -50%);
+      border: 3px solid black;
+    }
+    #previousPageButton {
+      height: 80px;
+      width: 200px;
+      position: absolute;
+      top: 80%;
+      left: 7%;
+      font-size: x-large;
+      transform: translate(-50%, -50%);
+      border: 3px solid black;
+    }
   </style>
   <title>Image Grids</title>
 </head>
 <body>
   <h1>왼쪽 그림에서 노란색으로 표시된 도형과 모양이 같은 도형을 오른쪽에서 고르세요</h1>
+  <button id="previousPageButton">이전 페이지</button>
+  <button id="nextPageButton">다음 페이지</button>
   <div class="grid-container">
     <div class="image-grid">
       <img src="img/yel1.jpg" alt="Yellow Image 1">
@@ -123,6 +147,22 @@
         });
       }, 1200); // 1.5초 후 초기화
     }
+    document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'mainmenu.html';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+                // 다음 페이지로 이동
+                window.location.href = 'initial_match1.html';
+            });
+        });
   </script>
 </body>
 </html>

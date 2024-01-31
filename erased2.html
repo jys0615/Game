@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 스타일링을 위한 간단한 CSS 코드 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: white;
+        }
+
+        img {
+            width: 80%;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* 가운데 정렬을 위한 스타일 */
+        }
+
+        .question-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* 부모 td에 높이를 100%로 설정 */
+        }
+
+        .question {
+            width: 100%; /* 버튼의 너비를 100%로 설정 */           
+            color: white;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: large;
+        }
+
+        .answer-container {
+            text-align: right;
+            margin-top: 20px;
+            font-size: larger;
+        }
+
+        .answer {
+            position: absolute;
+            top: 50%;
+            right: 3%; /* Adjust the left position as needed */
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+        }
+
+        #previousPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 30%;
+            left: 8%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+        #nextPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            text-align: center;
+            top: 30%;
+            right: -5%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+    </style>
+    <title>웹페이지 예제</title>
+</head>
+<body>
+    <h1>그림의 일부가 지워진 지워진 부분을 채워 그림을  완성한다면 어떤 그림일지 고르세요.</h1>
+    <!-- 2x1 표 생성 -->
+    <table>
+        <tr>
+            <th colspan="4"><img src="img/erased6.jpg" alt="이미지"></th>
+        </tr>
+        <tr>
+            <!-- 객관식 문항 1 -->
+            <td>
+                <div class="question-container">
+                    <button class="btn question" onclick="checkAnswer('X')"><img src="img/erased7.jpg" alt="이미지"></button>
+                    <!-- 여기에 객관식 문항 1에 대한 입력 폼 등을 추가할 수 있습니다. -->
+                </div>
+            </td>
+            
+            <!-- 객관식 문항 2 -->
+            <td>
+                <div class="question-container">
+                    <button class="btn question" onclick="checkAnswer('O')"><img src="img/erased8.jpg" alt="이미지"></button>
+                    <!-- 여기에 객관식 문항 2에 대한 입력 폼 등을 추가할 수 있습니다. -->
+                </div>
+            </td>
+            <!-- 객관식 문항 3 -->
+            <td>
+                <div class="question-container">
+                    <button class="btn question" onclick="checkAnswer('X')"><img src="img/erased9.jpg" alt="이미지"></button>
+                    <!-- 여기에 객관식 문항 3에 대한 입력 폼 등을 추가할 수 있습니다. -->
+                </div>
+            </td>
+            <td>
+                <div class="question-container">
+                    <button class="btn question" onclick="checkAnswer('X')"><img src="img/erased10.jpg" alt="이미지"></button>
+                    <!-- 여기에 객관식 문항 3에 대한 입력 폼 등을 추가할 수 있습니다. -->
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="answer" id="answer"></div>
+    <button id="previousPageButton">이전 페이지</button>
+    <button id="nextPageButton">다음 페이지</button>
+
+    <script>
+        function checkAnswer(animal) {
+            // 정답 표시 영역의 내용을 변경하고 표시
+            var answerText = (animal === 'O') ? '정답입니다!' : '오답입니다!';
+            document.getElementById('answer').innerText = answerText;
+            document.getElementById('answer').style.color = (animal === 'O') ? 'green' : 'red';
+
+            // 오답인 경우 1초 후에 정답 표시 영역 숨기기
+            if (animal === 'X') {
+                setTimeout(function() {
+                    document.getElementById('answer').innerText = '';
+                }, 1000);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'erased1.html';
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+                // 다음 페이지로 이동
+            window.location.href = 'flower_num.html';
+            });
+        });
+    </script>
+</body>
+</html>

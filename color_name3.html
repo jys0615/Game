@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+     /* 전체 페이지에 대한 스타일링 */
+     body {
+      margin: 0;
+      padding: 0;
+      height: 100vh; /* 뷰포트 높이(100% 화면 높이) */
+      display: flex;
+      flex-wrap: wrap; /* flex 항목을 여러 줄로 나눔 */
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 각 상자 공통 스타일링 */
+    button {
+      margin: 10px;
+      width: 150px;
+      height: 229px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 상단 영역 스타일링 */
+    .top-section {
+      width: 100%;
+      height: 60%;
+      background-color: yellow;
+      position: relative;
+      border: 2px solid black; /* 테두리 추가 */
+    }
+
+    /* 수평선 스타일링 */
+    .horizontal-line {
+      width: 100%;
+      height: 2px;
+      background-color: black;
+    }
+
+    /* 하단 영역 스타일링 */
+    .bottom-section {
+      width: 100%;
+      height: 40%;
+      background-color: white;
+      position: relative;
+      border: 2px solid black; /* 테두리 추가 */
+    }
+
+    /* 글자 스타일링 */
+    .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 22px;
+      color: black; /* 글자 색상 */
+    }
+    .image-grid img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+    .correct-answer {
+      color: green;
+    }
+
+    .incorrect-answer {
+      color: red;
+    }
+    h1 {
+        position: absolute;
+        top: 30%;
+        left: 10%;
+        transform: translate(-50%, -50%);
+    }
+    .feedback-message {
+      position: absolute;
+      top: 50%;
+      right: 3%; /* Adjust the left position as needed */
+      font-size: x-large;
+      transform: translate(-50%, -50%);
+    }
+    #previousPageButton {
+        height: 80px;
+        width: 200px;
+        position: absolute;
+        text-align: center;
+        top: 7%;
+        left: 7%;
+        font-size: x-large;
+        transform: translate(-50%, -50%);
+        border: 3px solid black;
+        justify-content: center;
+    }
+    #nextPageButton {
+      height: 80px;
+      width: 200px;
+      position: absolute;
+      top: 7%;
+      right: -4%;
+      font-size: x-large;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      border: 3px solid black;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>색깔과 단어가<br>일치하는 것을<br>고르세요</h1>
+  <div style="display: flex;">
+    <button onclick="checkAnswer('btn1', this)">
+      <div class="top-section" style="background-color: red;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">빨간색</div>
+      </div>
+    </button>
+
+    <button id="btn2" onclick="checkAnswer('btn2', this)">
+      <div class="top-section" style="background-color: green;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">보라색</div>
+      </div>
+    </button>
+
+    <button id="btn3" onclick="checkAnswer('btn3', this)">
+      <div class="top-section" style="background-color: blue;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">파란색</div>
+      </div>
+    </button>
+
+    <button id="btn4" onclick="checkAnswer('btn4', this)">
+      <div class="top-section" style="background-color: purple;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">초록색</div>
+      </div>
+    </button>
+
+    <button id="btn5" onclick="checkAnswer('btn5', this)">
+      <div class="top-section" style="background-color: yellow;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">노란색</div>
+      </div>
+    </button>
+  </div>
+
+  <div style="display: flex;">
+    <button id="btn6" onclick="checkAnswer('btn6', this)">
+      <div class="top-section" style="background-color: yellow;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">파란색</div>
+      </div>
+    </button>
+
+    <button id="btn7" onclick="checkAnswer('btn7', this)">
+      <div class="top-section" style="background-color: blue;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">빨간색</div>
+      </div>
+    </button>
+
+    <button id="btn8" onclick="checkAnswer('btn8', this)">
+      <div class="top-section" style="background-color: purple;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">보라색</div>
+      </div>
+    </button>
+
+    <button id="btn9" onclick="checkAnswer('btn9', this)">
+      <div class="top-section" style="background-color: red;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">초록색</div>
+      </div>
+    </button>
+
+    <button id="btn10" onclick="checkAnswer('btn10', this)">
+      <div class="top-section" style="background-color: green;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">노란색</div>
+      </div>
+    </button>
+  </div>
+
+  <div style="display: flex;">
+    <button id="btn11" onclick="checkAnswer('btn11', this)">
+      <div class="top-section" style="background-color: red;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">빨간색</div>
+      </div>
+    </button>
+
+    <button id="btn12" onclick="checkAnswer('btn12', this)">
+      <div class="top-section" style="background-color: green;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">초록색</div>
+      </div>
+    </button>
+
+    <button id="btn13" onclick="checkAnswer('btn13', this)">
+      <div class="top-section" style="background-color: blue;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">노란색</div>
+      </div>
+    </button>
+
+    <button id="btn14" onclick="checkAnswer('btn14', this)">
+      <div class="top-section" style="background-color: purple;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">보라색</div>
+      </div>
+    </button>
+
+    <button id="btn15" onclick="checkAnswer('btn15', this)">
+      <div class="top-section" style="background-color: yellow;"></div>
+      <div class="horizontal-line"></div>
+      <div class="bottom-section">
+        <div class="text">파란색</div>
+      </div>
+    </button>
+  </div>
+  <div class="feedback-message" id="feedbackMessage"></div>
+  <button id="previousPageButton">이전 페이지</button>
+  <button id="nextPageButton">다음 페이지</button>
+  <script>
+    function checkAnswer(selectedButtonId, button) {
+      var correctAnswers = ['btn1', 'btn3', 'btn5', 'btn8', 'btn11', 'btn12', 'btn14'];
+      var feedbackMessage = document.getElementById('feedbackMessage');
+
+      // 초기화
+      document.querySelectorAll('button').forEach(function (btn) {
+        btn.style.border = '3px solid transparent';
+      });
+
+      if (correctAnswers.includes(selectedButtonId)) {
+        feedbackMessage.textContent = '정답입니다! √';
+        feedbackMessage.className = 'feedback-message correct-answer';
+      } else {
+        feedbackMessage.textContent = '오답입니다.';
+        feedbackMessage.className = 'feedback-message incorrect-answer';
+      }
+
+      // 테두리에 색상 적용
+      button.style.border = '3px solid ' + (correctAnswers.includes(selectedButtonId) ? 'green' : 'red');
+
+      // 잠시 후에 메시지 초기화
+      setTimeout(function () {
+        feedbackMessage.textContent = '';
+        feedbackMessage.className = 'feedback-message';
+
+        // 테두리 초기화
+        document.querySelectorAll('button').forEach(function (btn) {
+          btn.style.border = '3px solid transparent';
+        });
+      }, 1200); // 1.5초 후 초기화
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'color_name2.html';
+            });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+             // 다음 페이지로 이동
+            window.location.href = 'namequiz1.html';
+            });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4x2 Table</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column; /* 수직 정렬을 위해 컬럼 방향으로 설정 */
+        }
+
+        h2 {
+            margin-bottom: 20px; /* 제목과 표 사이 여백 조정 */
+        }
+
+        table {
+            width: 30%;
+            height: 400px; /* 크기 조정 */
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        table, th, td {
+            border: 2px solid black;
+        }
+
+        td img {
+            width: 100%; /* 이미지 크기 조정 */
+            height: 98%; /* 이미지 크기 조정 */
+        }
+
+        .draggable-img {
+            position: absolute;
+            width: 150px; /* 이미지 크기 조정 */
+            height: 80px; /* 이미지 크기 조정 */
+            cursor: move;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            -user-drag: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        th, td {
+            border: 2px solid black;
+            width: 100px;
+            height: 120px;
+            padding: 20px;
+            text-align: center;
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .highlight {
+            background-color: greenyellow;
+        }
+
+        #notification {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50;
+            font-weight: bold;
+            color: white;
+            padding: 15px;
+            display: none;
+        }
+    #dog {
+      right: 150px;
+      top: 260px;
+    }
+
+    #elephant {
+      right: 120px;
+      top: 150px;
+    }
+
+    #horse {
+      right: 180px;
+      top: 200px;
+      width: 80px; /* 이미지 크기 조정 */
+      height: 80px; /* 이미지 크기 조정 */
+    }
+
+    #deer {
+      right: 60px;
+      top: 300px;
+    }
+    #previousPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            text-align: center;
+            top: 7%;
+            left: 7%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+            justify-content: center;
+        }
+        #nextPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            right: -4%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            border: 3px solid black;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>그림자의 “모습”은 무엇일까요?</h2>
+    <button id="previousPageButton">이전 페이지</button>
+    <button id="nextPageButton">처음으로</button>
+    
+    <table>
+        <tr>
+            <td><img src="img/shad_dog.jpg" alt="Dog Shadow"></td>
+            <td><img src="img/shad_elephant.jpg" alt="Elephant Shadow"></td>
+        </tr>
+        <tr>
+            <td id="answerCell1" data-fruit="dog"></td>
+            <td id="answerCell2" data-fruit="elephant"></td>
+        </tr>
+        <tr>
+            <td><img src="img/shad_goat.jpg" alt="Goat Shadow"></td>
+            <td><img src="img/shad_horse.jpg" alt="Horse Shadow"></td>
+        </tr>
+        <tr>
+            <td id="answerCell3" data-fruit="deer"></td>
+            <td id="answerCell4" data-fruit="horse"></td>
+        </tr>
+    </table>
+    <img id="dog" class="draggable-img" src="img/강아지.jpg" alt="강아지">
+    <img id="elephant" class="draggable-img" src="img/코끼리.jpg" alt="코끼리">
+    <img id="horse" class="draggable-img" src="img/말.jpg" alt="말">
+    <img id="deer" class="draggable-img" src="img/deer.jpg" alt="deer">
+
+    <div id="notification">축하합니다! 정답을 모두 맞췄습니다.</div>
+  
+  <script>
+    var draggableImgs = document.querySelectorAll('.draggable-img');
+    var answerCells = [document.getElementById('answerCell1'), document.getElementById('answerCell2'), document.getElementById('answerCell3'), document.getElementById('answerCell4')];
+    var notification = document.getElementById('notification');
+    var correctAnswers = 0;
+
+    draggableImgs.forEach(function(draggableImg) {
+      var offsetX, offsetY, isDragging = false;
+
+      draggableImg.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        offsetX = e.clientX - draggableImg.getBoundingClientRect().left;
+        offsetY = e.clientY - draggableImg.getBoundingClientRect().top;
+        draggableImg.style.zIndex = 2;
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+          draggableImg.style.left = e.clientX - offsetX + 'px';
+          draggableImg.style.top = e.clientY - offsetY + 'px';
+
+          answerCells.forEach(function(answerCell) {
+            if (isOverlapping(draggableImg, answerCell)) {
+              answerCell.classList.add('highlight');
+            } else {
+              answerCell.classList.remove('highlight');
+            }
+          });
+        }
+      });
+
+      document.addEventListener('mouseup', function() {
+        isDragging = false;
+        draggableImg.style.zIndex = 1;
+
+        var imgCenterX = draggableImg.getBoundingClientRect().left + draggableImg.width / 2;
+        var imgCenterY = draggableImg.getBoundingClientRect().top + draggableImg.height / 2;
+
+        answerCells.forEach(function(answerCell) {
+          var answerCellRect = answerCell.getBoundingClientRect();
+          var answerCellCenterX = answerCellRect.left + answerCellRect.width / 2;
+          var answerCellCenterY = answerCellRect.top + answerCellRect.height / 2;
+
+          if (
+            imgCenterX > answerCellRect.left &&
+            imgCenterX < answerCellRect.right &&
+            imgCenterY > answerCellRect.top &&
+            imgCenterY < answerCellRect.bottom
+          ) {
+            var deltaX = answerCellCenterX - imgCenterX;
+            var deltaY = answerCellCenterY - imgCenterY;
+
+            draggableImg.style.left = (parseFloat(draggableImg.style.left) + deltaX) + 'px';
+            draggableImg.style.top = (parseFloat(draggableImg.style.top) + deltaY) + 'px';
+
+            if (answerCell.getAttribute('data-fruit') === draggableImg.id) {
+              answerCell.classList.add('highlight');
+              if (!answerCell.classList.contains('correct')) {
+                answerCell.classList.add('correct');
+                correctAnswers++;
+
+                if (correctAnswers === answerCells.length) {
+                  showNotification('축하합니다! 정답을 모두 맞췄습니다.');
+                }
+              }
+            } else {
+              answerCell.classList.remove('highlight');
+              answerCell.classList.remove('correct');
+            }
+          }
+        });
+      });
+    });
+
+    function isOverlapping(element1, element2) {
+      const rect1 = element1.getBoundingClientRect();
+      const rect2 = element2.getBoundingClientRect();
+
+      return (
+        rect1.left < rect2.right &&
+        rect1.right > rect2.left &&
+        rect1.top < rect2.bottom &&
+        rect1.bottom > rect2.top
+      );
+    }
+
+    function showNotification(message) {
+      notification.innerText = message;
+      notification.style.display = 'block';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'namequiz4.html';
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+             // 다음 페이지로 이동
+            window.location.href = 'mainmenu.html';
+            });
+        });
+  </script>
+
+</body>
+</html>

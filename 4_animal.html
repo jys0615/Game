@@ -99,9 +99,34 @@
     }
 
     #answerMessage {
-      font-size: 24px;
+      font-size: 40px;
       color: green; /* 초록색으로 변경 */
       font-weight: bold; /* 더 굵게 변경 */
+    }
+    
+    #nextPageButton {
+      height: 80px;
+      width: 200px;
+      position: absolute;
+      top: 9.5%;
+      right: -4%;
+      font-size: x-large;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid black;
+    }
+
+    #previousPageButton {
+      height: 80px;
+      width: 200px;
+      position: absolute;
+      top: 9.5%;
+      left: 8%;
+      font-size: x-large;
+      transform: translate(-50%, -50%);
+      border: 3px solid black;
     }
   </style>
 </head>
@@ -151,6 +176,8 @@
       <button id="button12" class="button" onclick="buttonClick(12)">말</button>
     </div>
   </div>
+  <button id="previousPageButton">이전 페이지</button>
+  <button id="nextPageButton">다음 페이지</button>
 
   <!-- 정답 메시지를 표시할 요소 -->
   <div id="answerMessageContainer">
@@ -200,6 +227,21 @@
         }
       }
     }
+    document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'quiz_pick2.html';
+            });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+                // 다음 페이지로 이동
+                window.location.href = 'same_icon1.html';
+            });
+    });
   </script>
 
 </body>

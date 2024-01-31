@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퀴즈</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 30px;
+            font-size: 29px;
+        }
+
+        button {
+            width: 40%;
+            height: 90px;
+            margin: 5px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .button-container {
+            display: grid;
+            gap: 10px;
+            width: 100%; /* Set width to 100% for responsiveness */
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .my-button {
+            padding: 15px 20px;
+            font-size: 40px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .my-button:hover {
+            background-color: #45a049;
+        }
+
+        .my-button.correct {
+            background-color: #2196F3;
+        }
+        .my-button.incorrect {
+            background-color: red;
+        }
+
+        .my-button.red-text {
+            color: red;
+            font-size: xx-large;
+        }
+
+        .my-button.no-function {
+            background-color: #fff;
+            cursor: not-allowed;
+        }
+
+        .my-button.no-function:hover {
+            background-color: #fff;
+            color: #666;
+        }
+
+        .correct-answer {
+            color: white;
+        }
+
+        #messageContainer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #nextPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            right: -6%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+        #previousPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            left: 7%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <h1>빨간색 글씨의 범주에 해당되는 것을 오른쪽에서 찾아 동그라미(O)로 표시하세요.</h1>
+        <button id="nextPageButton">다음 페이지</button>
+        <button id="previousPageButton">이전 페이지</button>
+        <div class="button-row">
+    <button class="my-button no-function red-text">음료수</button>
+    <button class="my-button" onclick="checkAnswer(this, '식혜')">식혜</button>
+    <button class="my-button" onclick="checkAnswer(this, '반지')">반지</button>
+    <button class="my-button" onclick="checkAnswer(this, '시계')">시계</button>
+    <button class="my-button" onclick="checkAnswer(this, '보석')">보석</button>
+</div>
+<div class="button-row">
+    <button class="my-button no-function red-text">농기구</button>
+    <button class="my-button" onclick="checkAnswer(this, '그릇')">그릇</button>
+    <button class="my-button" onclick="checkAnswer(this, '젓가락')">젓가락</button>
+    <button class="my-button" onclick="checkAnswer(this, '괭이')">괭이</button>
+    <button class="my-button" onclick="checkAnswer(this, '망치')">망치</button>
+</div>
+<div class="button-row">
+    <button class="my-button no-function red-text">학교</button>
+    <button class="my-button" onclick="checkAnswer(this, '국어')">국어</button>
+    <button class="my-button" onclick="checkAnswer(this, '창문')">창문</button>
+    <button class="my-button" onclick="checkAnswer(this, '피자')">피자</button>
+    <button class="my-button" onclick="checkAnswer(this, '커피')">커피</button>
+</div>
+<div class="button-row">
+    <button class="my-button no-function red-text">종교</button>
+    <button class="my-button" onclick="checkAnswer(this, '초록')">초록</button>
+    <button class="my-button" onclick="checkAnswer(this, '양말')">양말</button>
+    <button class="my-button" onclick="checkAnswer(this, '어묵')">어묵</button>
+    <button class="my-button" onclick="checkAnswer(this, '불교')">불교</button>
+</div>
+<div class="button-row">
+    <button class="my-button no-function red-text">병원</button>
+    <button class="my-button" onclick="checkAnswer(this, '수갑')">수갑</button>
+    <button class="my-button" onclick="checkAnswer(this, '감옥')">감옥</button>
+    <button class="my-button" onclick="checkAnswer(this, '의사')">의사</button>
+    <button class="my-button" onclick="checkAnswer(this, '변호사')">변호사</button>
+</div>
+    </div>
+
+    <div id="messageContainer"></div>
+
+    <script>
+        function checkAnswer(button, correctAnswer) {
+            const messageContainer = document.getElementById('messageContainer');
+    
+            if (correctAnswer === '식혜' || correctAnswer === '괭이' || correctAnswer === '국어' || correctAnswer === '불교' || correctAnswer === '의사') {
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct-answer');
+                    button.classList.add('correct');
+                    showMessage('정답입니다!', 'green');
+                } else {
+                    showMessage('틀렸습니다. 다시 시도해보세요.', 'red');
+                }
+            } else {
+                button.classList.add('incorrect');
+                showMessage('오답입니다. 다시 시도해보세요.', 'red');
+            }
+        }
+    
+        function showMessage(message, color) {
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.textContent = message;
+            messageContainer.style.color = color;
+    
+            // Clear message after 1 second
+            setTimeout(function () {
+                messageContainer.textContent = '';
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'red_category3.html';
+            });
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'quiz_pick1.html';
+            });
+        });
+    </script>    
+</body>
+</html>

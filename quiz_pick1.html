@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>물속에 사는 어류</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .image-container button {
+            width: 224px;
+            height: 224px;
+            background: none;
+            border: 4px solid transparent; /* 조절 가능한 굵기 */
+            cursor: pointer;
+            padding: 0;
+            transition: border-color 0.3s ease-in-out;
+            border-radius: 50%;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .correct {
+            border-color: green;
+        }
+
+        .incorrect {
+            border-color: red;
+        }
+        button {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            overflow: hidden;
+            background-color: #eee;
+            transition: background-color 0.3s;
+        }
+        #nextPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            right: -3%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+        }
+        #previousPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            left: 7%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+        #feedback {
+            position: absolute;
+            text-align: center;
+            font-size: 23px;
+            top: 20%;
+            right: 6%;
+        }
+    </style>
+</head>
+<body>
+    <h1>“물속에 사는 어류”를 고르세요.</h1>
+
+    <div class="image-container">
+        <button onclick="checkAnswer('dog.jpg', this)"><img src="img/dog.jpg" alt="강아지"></button>
+        <button onclick="checkAnswer('dolphine.jpg', this)"><img src="img/dolphine.jpg" alt="돌고래"></button>
+        <button onclick="checkAnswer('cat.jpg', this)"><img src="img/cat.jpg" alt="고양이"></button>
+        <button onclick="checkAnswer('fish.jpg', this)"><img src="img/fish.jpg" alt="물고기"></button>
+        <button onclick="checkAnswer('cow.jpg', this)"><img src="img/cow.jpg" alt="소"></button>
+        <button onclick="checkAnswer('elephant.jpg', this)"><img src="img/elephant.jpg" alt="코끼리"></button>
+        <button onclick="checkAnswer('rabbit.jpg', this)"><img src="img/rabbit.jpg" alt="토끼"></button>
+        <button onclick="checkAnswer('lion.jpg', this)"><img src="img/lion.jpg" alt="사자"></button>
+        <button onclick="checkAnswer('shark.jpg', this)"><img src="img/shark.jpg" alt="상어"></button>
+    </div>
+
+    <div id="feedback"></div>
+    <button id="previousPageButton">이전 페이지</button>
+    <button id="nextPageButton">다음 페이지</button>
+
+    <script>
+        function checkAnswer(imageFileName, button) {
+            var correctAnswers = ['shark.jpg', 'fish.jpg'];
+            var feedbackElement = document.getElementById('feedback');
+
+            if (correctAnswers.includes(imageFileName)) {
+                feedbackElement.textContent = '정답입니다!';
+                feedbackElement.style.color = 'green';
+                button.style.borderColor = 'green';
+            } else {
+                feedbackElement.textContent = '오답입니다.';
+                feedbackElement.style.color = 'red';
+                button.style.borderColor = 'red';
+            }
+
+            setTimeout(function () {
+                feedbackElement.textContent = '';
+               // button.style.borderColor = 'transparent';
+            }, 1500);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'red_category4.html';
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+                // 다음 페이지로 이동
+                window.location.href = 'quiz_pick2.html';
+            });
+        });
+    </script>
+</body>
+</html>

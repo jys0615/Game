@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퀴즈</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 30px;
+            font-size: 29px;
+        }
+
+        button {
+            width: 40%;
+            height: 90px;
+            margin: 5px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .button-container {
+            display: grid;
+            gap: 10px;
+            width: 100%; /* Set width to 100% for responsiveness */
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .my-button {
+            padding: 15px 20px;
+            font-size: 40px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .my-button:hover {
+            background-color: #45a049;
+        }
+
+        .my-button.correct {
+            background-color: #2196F3;
+        }
+        .my-button.incorrect {
+            background-color: red;
+        }
+
+        .my-button.red-text {
+            color: red;
+            font-size: xx-large;
+        }
+
+        .my-button.no-function {
+            background-color: #fff;
+            cursor: not-allowed;
+        }
+
+        .my-button.no-function:hover {
+            background-color: #fff;
+            color: #666;
+        }
+
+        .correct-answer {
+            color: white;
+        }
+
+        #messageContainer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #nextPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            right: -6%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+        #previousPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            left: 7%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <h1>빨간색 글씨의 범주에 해당되는 것을 오른쪽에서 찾아 동그라미(O)로 표시하세요.</h1>
+        <button id="nextPageButton">다음 페이지</button>
+        <button id="previousPageButton">이전 페이지</button>
+        <div class="button-row">
+            <button class="my-button no-function red-text">동물</button>
+            <button class="my-button" onclick="checkAnswer(this, '부산')">부산</button>
+            <button class="my-button" onclick="checkAnswer(this, '돼지')">돼지</button>
+            <button class="my-button" onclick="checkAnswer(this, '나비')">나비</button>
+            <button class="my-button" onclick="checkAnswer(this, '딸기')">딸기</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button no-function red-text">식물</button>
+            <button class="my-button" onclick="checkAnswer(this, '개나리')">개나리</button>
+            <button class="my-button" onclick="checkAnswer(this, '잠자리')">잠자리</button>
+            <button class="my-button" onclick="checkAnswer(this, '여름')">여름</button>
+            <button class="my-button" onclick="checkAnswer(this, '토끼')">토끼</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button no-function red-text">필기구</button>
+            <button class="my-button" onclick="checkAnswer(this, '연필')">연필</button>
+            <button class="my-button" onclick="checkAnswer(this, '종이컵')">종이컵</button>
+            <button class="my-button" onclick="checkAnswer(this, '선풍기')">선풍기</button>
+            <button class="my-button" onclick="checkAnswer(this, '우유')">우유</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button no-function red-text">바다</button>
+            <button class="my-button" onclick="checkAnswer(this, '빨강')">빨강</button>
+            <button class="my-button" onclick="checkAnswer(this, '봄')">봄</button>
+            <button class="my-button" onclick="checkAnswer(this, '조개')">조개</button>
+            <button class="my-button" onclick="checkAnswer(this, '나무')">나무</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button no-function red-text">화장실</button>
+            <button class="my-button" onclick="checkAnswer(this, '그릇')">그릇</button>
+            <button class="my-button" onclick="checkAnswer(this, '의자')">의자</button>
+            <button class="my-button" onclick="checkAnswer(this, '칫솔')">칫솔</button>
+            <button class="my-button" onclick="checkAnswer(this, '컴퓨터')">컴퓨터</button>
+        </div>
+    </div>
+
+    <div id="messageContainer"></div>
+
+    <script>
+        function checkAnswer(button, correctAnswer) {
+            const messageContainer = document.getElementById('messageContainer');
+    
+            if (correctAnswer === '돼지' || correctAnswer === '개나리' || correctAnswer === '연필' || correctAnswer === '조개' || correctAnswer === '칫솔') {
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct-answer');
+                    button.classList.add('correct');
+                    showMessage('정답입니다!', 'green');
+                } else {
+                    showMessage('틀렸습니다. 다시 시도해보세요.', 'red');
+                }
+            } else {
+                button.classList.add('incorrect');
+                showMessage('오답입니다. 다시 시도해보세요.', 'red');
+            }
+        }
+    
+        function showMessage(message, color) {
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.textContent = message;
+            messageContainer.style.color = color;
+    
+            // Clear message after 1 second
+            setTimeout(function () {
+                messageContainer.textContent = '';
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'red_category1.html';
+            });
+        });
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'red_category3.html';
+            });
+        });
+    </script>    
+</body>
+</html>

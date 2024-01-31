@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퀴즈</title>
+    <style>
+        h1 {
+            text-align: center;
+            margin: 38px;
+            font-size: 29px;
+        }
+        button {
+            width: 25%;
+            height: 65px;
+            margin: 5px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .button-container {
+            display: grid;
+            gap: 4px; /* 수정된 간격 */
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .my-button {
+            padding: 15px 30px; /* 수정된 크기 */
+            font-size: px; /* 수정된 크기 */
+            text-align: center;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .my-button:hover {
+            background-color: #45a049;
+        }
+        .my-button.correct {
+            background-color: #2196F3;
+        }
+        .my-button.incorrect {
+            background-color: red;
+        }
+        /* 특정 버튼의 글자 색상 변경 */
+        .my-button.red-text {
+            color: red;
+        }
+
+        /* "no-function" 클래스를 가진 버튼의 스타일 변경 */
+        .my-button.no-function {
+            background-color: #fff;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .my-button.no-function:hover {
+            background-color: #fff;
+            color: #666;
+        }
+
+        .correct-answer {
+            color: white; /* 수정된 색상 */
+        }
+
+        #nextPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            right: -6%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+
+        #previousPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            left: 7%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>글자판에서 글자 ‘감’을 찾아 동그라미(O) 해보세요.</h1>
+    <div class="button-container">
+        <div class="button-row">
+            <button class="my-button" onclick="checkAnswer(this, '김')">김</button>
+            <button class="my-button" onclick="checkAnswer(this, '겡')">겡</button>
+            <button class="my-button" onclick="checkAnswer(this, '귬')">귬</button>
+            <button class="my-button" onclick="checkAnswer(this, '감')">감</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button" onclick="checkAnswer(this, '굥')">굥</button>
+            <button class="my-button" onclick="checkAnswer(this, '감')">감</button>
+            <button class="my-button" onclick="checkAnswer(this, '곰')">곰</button>
+            <button class="my-button" onclick="checkAnswer(this, '갓')">갓</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button" onclick="checkAnswer(this, '굽')">굽</button>
+            <button class="my-button" onclick="checkAnswer(this, '갑')">갑</button>
+            <button class="my-button" onclick="checkAnswer(this, '감')">감</button>
+            <button class="my-button" onclick="checkAnswer(this, '갈')">갈</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button" onclick="checkAnswer(this, '귱')">귱</button>
+            <button class="my-button" onclick="checkAnswer(this, '검')">검</button>
+            <button class="my-button" onclick="checkAnswer(this, '군')">군</button>
+            <button class="my-button" onclick="checkAnswer(this, '긴')">긴</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button" onclick="checkAnswer(this, '캉')">캉</button>
+            <button class="my-button" onclick="checkAnswer(this, '겝')">겝</button>
+            <button class="my-button" onclick="checkAnswer(this, '갑')">갑</button>
+            <button class="my-button" onclick="checkAnswer(this, '깁')">깁</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button" onclick="checkAnswer(this, '검')">검</button>
+            <button class="my-button" onclick="checkAnswer(this, '캄')">캄</button>
+            <button class="my-button" onclick="checkAnswer(this, '감')">감</button>
+            <button class="my-button" onclick="checkAnswer(this, '겁')">겁</button>
+        </div>
+        <div class="button-row">
+            <button class="my-button" onclick="checkAnswer(this, '감')">감</button>
+            <button class="my-button" onclick="checkAnswer(this, '갭')">갭</button>
+            <button class="my-button" onclick="checkAnswer(this, '감')">감</button>
+            <button class="my-button" onclick="checkAnswer(this, '캄')">캄</button>
+        </div>
+        <button id="previousPageButton">이전 페이지</button>
+        <button id="nextPageButton">다음 페이지</button>
+    </div>
+
+    <script>
+        function checkAnswer(button, correctAnswer) {
+            if (correctAnswer === '감') {
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct-answer');
+                    button.classList.add('correct');
+                    showMessage('정답입니다!', 'green');
+                } else {
+                    showMessage('틀렸습니다. 다시 시도해보세요.', 'red');
+                }
+            } else {
+                button.classList.add('incorrect');
+                showMessage('오답입니다. 다시 시도해보세요.', 'red');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'same_letter1.html';
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+                // 다음 페이지로 이동
+                window.location.href = 'red_category1.html';
+            });
+        });
+    </script>
+
+</body>
+</html>

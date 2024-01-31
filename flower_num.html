@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2x5 Table</title>
+  <style>
+    body {
+      margin: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    #one {
+      right: 150px;
+      top: 270px;
+    }
+
+    #two {
+      right: 120px;
+      top: 150px;
+    }
+
+    #three {
+      right: 180px;
+      top: 200px;
+    }
+
+    #four {
+      right: 60px;
+      top: 300px;
+    }
+    #five {
+      right: 120px;
+      top: 480px;
+    }
+    .draggable-img {
+        position: absolute;
+        width: 60px; /* 이미지 크기 조정 */
+        height: 60px; /* 이미지 크기 조정 */
+        cursor: move;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        -user-drag: none;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    table {
+      width: 40%;
+      height: 100%;
+      border-collapse: collapse;
+      border: 2px solid black;
+    }
+    th, td {
+      border: 2px solid black;
+      padding: 8px;
+      text-align: center;
+      height: 50px;
+      font-size: x-large;
+    }
+    img {
+      width: 100%; /* 이미지의 너비를 100%로 설정하여 부모 요소에 맞게 크기 조정 */
+      height: auto; /* 높이를 자동으로 조정하여 비율 유지 */
+      display: block; /* 인라인 요소 간 여백 문제를 해결하기 위해 블록 레벨로 설정 */
+    }
+    .highlight {
+        background-color: greenyellow;
+    }
+    h2 {
+      text-align: center;
+    }
+
+    #notification {
+        position: fixed;
+        top: 100px;
+        right: 10px;
+        background-color: #4CAF50;
+        font-weight: bold;
+        color: white;
+        padding: 15px;
+        display: none;
+    }
+    #previousPageButton {
+      height: 80px;
+      width: 200px;
+      position: absolute;
+      top: 7%;
+      left: 8%;
+      font-size: x-large;
+      transform: translate(-50%, -50%);
+      border: 3px solid black;
+    }
+    #nextPageButton {
+      height: 80px;
+      width: 200px;
+      position: absolute;
+      text-align: center;
+      top: 7%;
+      right: -4%;
+      font-size: x-large;
+      transform: translate(-50%, -50%);
+      border: 3px solid black;
+    }
+  </style>
+</head>
+<body>
+  <h1><그림>에 해당하는 숫자를 아래 빈칸에 넣어보세요</h1>
+  <table>
+    <tbody>
+      <tr>
+        <td><img src="img/flower1.jpg" alt="Flower 1"></td>
+        <td><img src="img/flower2.jpg" alt="Flower 2"></td>
+        <td><img src="img/flower3.jpg" alt="Flower 3"></td>
+        <td><img src="img/flower4.jpg" alt="Flower 4"></td>
+        <td><img src="img/flower5.jpg" alt="Flower 5"></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>3</td>
+        <td>1</td>
+        <td>5</td>
+        <td>2</td>
+      </tr>
+    </tbody>
+    <tbody>
+        <tr>
+          <td><img src="img/flower2.jpg" alt="Flower 1"></td>
+          <td><img src="img/flower3.jpg" alt="Flower 2"></td>
+          <td><img src="img/flower1.jpg" alt="Flower 3"></td>
+          <td><img src="img/flower5.jpg" alt="Flower 4"></td>
+          <td><img src="img/flower4.jpg" alt="Flower 5"></td>
+        </tr>
+        <tr>
+          <td id="answerCell1" data-fruit="three"></td>
+          <td id="answerCell2" data-fruit="one"></td>
+          <td id="answerCell3" data-fruit="four"></td>
+          <td id="answerCell4" data-fruit="two"></td>
+          <td id="answerCell5" data-fruit="five"></td>
+        </tr>
+        <tr>
+            <td><img src="img/flower3.jpg" alt="Flower 1"></td>
+            <td><img src="img/flower1.jpg" alt="Flower 2"></td>
+            <td><img src="img/flower4.jpg" alt="Flower 3"></td>
+            <td><img src="img/flower2.jpg" alt="Flower 4"></td>
+            <td><img src="img/flower5.jpg" alt="Flower 5"></td>
+          </tr>
+          <tr>
+            <td id="answerCell6" data-fruit="one"></td>
+            <td id="answerCell7" data-fruit="four"></td>
+            <td id="answerCell8" data-fruit="five"></td>
+            <td id="answerCell9" data-fruit="three"></td>
+            <td id="answerCell10" data-fruit="two"></td>
+          </tr>
+          <tr>
+            <td><img src="img/flower5.jpg" alt="Flower 1"></td>
+            <td><img src="img/flower3.jpg" alt="Flower 2"></td>
+            <td><img src="img/flower4.jpg" alt="Flower 3"></td>
+            <td><img src="img/flower1.jpg" alt="Flower 4"></td>
+            <td><img src="img/flower2.jpg" alt="Flower 5"></td>
+          </tr>
+          <tr>
+            <td id="answerCell11" data-fruit="two"></td>
+            <td id="answerCell12" data-fruit="one"></td>
+            <td id="answerCell13" data-fruit="five"></td>
+            <td id="answerCell14" data-fruit="four"></td>
+            <td id="answerCell15" data-fruit="three"></td>
+          </tr>
+      </tbody>
+  </table>
+  <img id="one" class="draggable-img" src="img/one.jpg" alt="강아지">
+  <img id="two" class="draggable-img" src="img/two.jpg" alt="코끼리">
+  <img id="three" class="draggable-img" src="img/three.jpg" alt="말">
+  <img id="four" class="draggable-img" src="img/four.jpg" alt="deer">
+  <img id="five" class="draggable-img" src="img/five.jpg" alt="deer">
+  <img id="one" class="draggable-img" src="img/one.jpg" alt="강아지">
+  <img id="two" class="draggable-img" src="img/two.jpg" alt="코끼리">
+  <img id="three" class="draggable-img" src="img/three.jpg" alt="말">
+  <img id="four" class="draggable-img" src="img/four.jpg" alt="deer">
+  <img id="five" class="draggable-img" src="img/five.jpg" alt="deer">
+  <img id="one" class="draggable-img" src="img/one.jpg" alt="강아지">
+  <img id="two" class="draggable-img" src="img/two.jpg" alt="코끼리">
+  <img id="three" class="draggable-img" src="img/three.jpg" alt="말">
+  <img id="four" class="draggable-img" src="img/four.jpg" alt="deer">
+  <img id="five" class="draggable-img" src="img/five.jpg" alt="deer">
+
+  <div id="notification">축하합니다! 정답을 모두 맞췄습니다.</div>
+  <button id="previousPageButton">이전 페이지</button>
+  <button id="nextPageButton">처음으로</button>
+  
+  <script>
+    var draggableImgs = document.querySelectorAll('.draggable-img');
+    var answerCells = [document.getElementById('answerCell1'), document.getElementById('answerCell2'), document.getElementById('answerCell3'), document.getElementById('answerCell4'), document.getElementById('answerCell5'), document.getElementById('answerCell6'), document.getElementById('answerCell7'), document.getElementById('answerCell8'), document.getElementById('answerCell9'), document.getElementById('answerCell10'), document.getElementById('answerCell11'), document.getElementById('answerCell12'), document.getElementById('answerCell13'), document.getElementById('answerCell14'), document.getElementById('answerCell15')];
+    var notification = document.getElementById('notification');
+    var correctAnswers = 0;
+
+    draggableImgs.forEach(function(draggableImg) {
+      var offsetX, offsetY, isDragging = false;
+
+      draggableImg.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        offsetX = e.clientX - draggableImg.getBoundingClientRect().left;
+        offsetY = e.clientY - draggableImg.getBoundingClientRect().top;
+        draggableImg.style.zIndex = 2; // 드래그 중인 이미지를 다른 이미지 위에 표시
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+          draggableImg.style.left = e.clientX - offsetX + 'px';
+          draggableImg.style.top = e.clientY - offsetY + 'px';
+
+          // 드래그 중에는 드롭 영역을 강조
+          answerCells.forEach(function(answerCell) {
+            if (isOverlapping(draggableImg, answerCell)) {
+              answerCell.classList.add('highlight');
+            } else {
+              answerCell.classList.remove('highlight');
+            }
+          });
+        }
+      });
+
+      document.addEventListener('mouseup', function() {
+        isDragging = false;
+        draggableImg.style.zIndex = 1; // 드래그 종료 시 다른 이미지 아래로 이동
+
+        // 이미지의 중심 좌표
+        var imgCenterX = draggableImg.getBoundingClientRect().left + draggableImg.width / 2;
+        var imgCenterY = draggableImg.getBoundingClientRect().top + draggableImg.height / 2;
+
+        // 정답 셀의 중심 좌표와 크기
+        answerCells.forEach(function(answerCell) {
+          var answerCellRect = answerCell.getBoundingClientRect();
+          var answerCellCenterX = answerCellRect.left + answerCellRect.width / 2;
+          var answerCellCenterY = answerCellRect.top + answerCellRect.height / 2;
+
+          // 정답 셀 안에 들어오면 정가운데 위치로 이동
+          if (
+            imgCenterX > answerCellRect.left &&
+            imgCenterX < answerCellRect.right &&
+            imgCenterY > answerCellRect.top &&
+            imgCenterY < answerCellRect.bottom
+          ) {
+            var deltaX = answerCellCenterX - imgCenterX;
+            var deltaY = answerCellCenterY - imgCenterY;
+
+            draggableImg.style.left = (parseFloat(draggableImg.style.left) + deltaX) + 'px';
+            draggableImg.style.top = (parseFloat(draggableImg.style.top) + deltaY) + 'px';
+
+            // 정답인 경우 강조 효과 추가
+            if (answerCell.getAttribute('data-fruit') === draggableImg.id) {
+              answerCell.classList.add('highlight');
+              if (!answerCell.classList.contains('correct')) {
+                answerCell.classList.add('correct');
+                correctAnswers++;
+
+                // 모든 정답을 맞춘 경우 알림 표시
+                if (correctAnswers === answerCells.length) {
+                  showNotification('축하합니다! 정답을 모두 맞췄습니다.');
+                }
+              }
+            } else {
+              answerCell.classList.remove('highlight');
+              answerCell.classList.remove('correct');
+            }
+          }
+        });
+      });
+    });
+
+    function isOverlapping(element1, element2) {
+      const rect1 = element1.getBoundingClientRect();
+      const rect2 = element2.getBoundingClientRect();
+
+      return (
+        rect1.left < rect2.right &&
+        rect1.right > rect2.left &&
+        rect1.top < rect2.bottom &&
+        rect1.bottom > rect2.top
+      );
+    }
+
+    function showNotification(message) {
+      notification.innerText = message;
+      notification.style.display = 'block';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'erased2.html';
+            });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+                // 다음 페이지로 이동
+                window.location.href = 'mainmenu.html';
+            });
+    });
+  </script>
+
+</body>
+</html>

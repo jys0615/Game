@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 스타일링을 위한 간단한 CSS 코드 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            width: 80%;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* 가운데 정렬을 위한 스타일 */
+        }
+
+        .question-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* 부모 td에 높이를 100%로 설정 */
+        }
+
+        .question {
+            width: 100%; /* 버튼의 너비를 100%로 설정 */
+            padding: 40px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: large;
+        }
+
+        .answer-container {
+            text-align: right;
+            margin-top: 20px;
+            font-size: larger;
+        }
+
+        .answer {
+            display: none;
+            position: absolute;
+            top: 50%;
+            right: 3%; /* Adjust the left position as needed */
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+        }
+
+        #previousPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            text-align: center;
+            top: 7%;
+            left: 7%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            border: 3px solid black;
+            justify-content: center;
+        }
+        #nextPageButton {
+            height: 80px;
+            width: 200px;
+            position: absolute;
+            top: 7%;
+            right: -4%;
+            font-size: x-large;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            border: 3px solid black;
+            justify-content: center;
+        }
+    </style>
+    <title>웹페이지 예제</title>
+</head>
+<body>
+    <h1>사물의 일부를 가까이 찍은 것입니다. 사물의 이름을 찾아 √하여 보세요.</h1>
+    <button id="previousPageButton">이전 페이지</button>
+    <button id="nextPageButton">다음 페이지</button>
+    <!-- 2x1 표 생성 -->
+    <table>
+        <tr>
+            <th colspan="3"><img src="img/glove.jpg" alt="이미지"></th>
+        </tr>
+        <tr>
+            <!-- 객관식 문항 1 -->
+            <td>
+                <div class="question-container">
+                    <button class="btn question" onclick="checkAnswer('glove')">장갑</button>
+                    <!-- 여기에 객관식 문항 1에 대한 입력 폼 등을 추가할 수 있습니다. -->
+                </div>
+            </td>
+            
+            <!-- 객관식 문항 2 -->
+            <td>
+                <div class="question-container">
+                    <button class="btn question" onclick="checkAnswer('shoes')">신발</button>
+                    <!-- 여기에 객관식 문항 2에 대한 입력 폼 등을 추가할 수 있습니다. -->
+                </div>
+            </td>
+            <!-- 객관식 문항 3 -->
+            <td>
+                <div class="question-container">
+                    <button class="btn question" onclick="checkAnswer('scissor')">가위</button>
+                    <!-- 여기에 객관식 문항 3에 대한 입력 폼 등을 추가할 수 있습니다. -->
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="answer" id="answer"></div>
+
+    <script>
+        function checkAnswer(animal) {
+            // 정답 표시 영역의 내용을 변경하고 표시
+            var answerText = (animal === 'glove') ? '정답입니다!' : '오답입니다!';
+            document.getElementById('answer').innerText = answerText;
+            document.querySelector('.answer').style.display = 'block';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('previousPageButton');
+    
+            nextPageButton.addEventListener('click', function() {
+                window.location.href = 'namequiz3.html';
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextPageButton = document.getElementById('nextPageButton');
+
+            nextPageButton.addEventListener('click', function() {
+             // 다음 페이지로 이동
+            window.location.href = 'shadow.html';
+            });
+        });
+    </script>
+</body>
+</html>
